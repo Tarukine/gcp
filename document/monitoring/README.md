@@ -34,7 +34,7 @@
 ![](images/check_agent.png)
 3. デモ用に作成したGCE インスタンスを選択し、**エージェントをインストール**をクリック
 ![](images/install_agent.png)
-4. **CLOUD SHELL で実行**を選択
+4. **CLOUD SHELL で実行**を選択  
 ![](images/install_agent_shell.png)
 5. エージェントがインストールされたことを確認
 ![](images/install_agent_done.png)

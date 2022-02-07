@@ -1,0 +1,10 @@
+variable "db_name" {}
+variable "db_instance_name" {}
+variable "db_user_name" {}
+variable "project" {}
+variable "region" {}
+variable "database_version" {}
+variable "tier" {}
+variable "availability_type" {}
+variable "host" {}
+variable "password" {}

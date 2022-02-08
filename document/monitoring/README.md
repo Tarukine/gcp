@@ -30,7 +30,7 @@
 ![](images/create_gce.png)
 4.  **HTTPトラフィックを許可する**にチェック
 ![](images/allow_http_access.png) 
-5. **起動スクリプト**に以下コマンドを入力
+5. **起動スクリプト**に以下コマンドを入力  
 ![](images/startup_script_setting.png)
 ```
 #!/bin/bash

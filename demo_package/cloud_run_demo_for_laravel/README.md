@@ -9,40 +9,69 @@
     export FORMAT="docker"
     export LOCATION="$REGION"
     export VM_NAME="demo-vm"
-    export NAME="laravel-demo-servicce"
+    export SERVICE_NAME="laravel-demo-service"
     export TAG="20220717"
 
-# Artifact Registoy
-## Create Artifact Registory
+
+# Artifact Registｒy
+## Create Artifact Registry
     gcloud artifacts repositories create $REPOSITORY \
         --repository-format=$FORMAT \
         --location=$REGION
-## Check AR path
+## Check Artifact Registry path（Copy paths after location）
     gcloud artifacts repositories describe $REPOSITORY \
         --location=$REGION |grep name
-## Export AR path 
+## Export Artifact Registry path 
     export AR_PATH="${add ar path}"
 
-# GCE
+
+<!-- # GCE
 ## Create GCE 
     gcloud compute instances create $VM_NAME \
     --zone=$ZONE \
     --machine-type=e2-micro \
     --image=projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20220610
-# SSH GCE
+## SSH GCE
     gcloud compute ssh $VM_NAME \
         --zone $ZONE
+## Install Docker 
+### Update apt package
+    sudo apt update
+### Install Package
+    sudo apt install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
+### Install the official Docker GPG public key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+### Add repository (stable)
+    sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
+### Update apt package
+    sudo apt update
+### Install the latest version
+    sudo apt-get install docker-ce docker-ce-cli containerd.io -->
 
-# Container Image(Operate within the GCE console)
+
+# Container Image
 ##　clone demo application code
-    git clone
+    git clone https://github.com/Tarukine/gcp.git
+    cd gcp/demo_package/cloud_run_demo_for_laravel/
+## Build Docker image
+    docker build -t $AR_PATH/$SERVICE_NAME:$TAG .
+## Authenticate Artifact Registry
+    gcloud auth configure-docker \
+        asia-northeast1-docker.pkg.dev
+## Push container image to Artifact Registry 
+    docker push $AR_PATH/$SERVICE_NAME:$TAG
 
-docker build -t $AR_PATH/$NAME:$TAG .
-# docker run -d $AR_PATH/$NAME:$TAG
-docker push $AR_PATH/$NAME:$TAG
-
-
-gcloud run deploy $NAME \
+# Cloud Run 
+## Deploy application to Cloud Run
+gcloud run deploy $SERVICE_NAME \
              --platform=managed \
              --region=$REGION \
-             --image=$AR_PATH/$NAME:$TAG
+             --image=$AR_PATH/$SERVICE_NAME:$TAG

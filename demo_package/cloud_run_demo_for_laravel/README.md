@@ -1,4 +1,5 @@
 ## init
+    docker stop $(docker ps -aq) && \
     docker rm $(docker ps -aq) && \
     docker rmi -f $(docker images -aq)
 
@@ -10,7 +11,7 @@
     export LOCATION="$REGION"
     export VM_NAME="demo-vm"
     export SERVICE_NAME="laravel-demo-service"
-    export TAG="20220717"
+    export TAG="v0.0.1"
 
 
 # Artifact Registｒy
@@ -38,7 +39,7 @@
 ### Update apt package
     sudo apt update
 ### Install Package
-    sudo apt install \
+    sudo apt install -y \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -54,7 +55,7 @@
 ### Update apt package
     sudo apt update
 ### Install the latest version
-    sudo apt-get install docker-ce docker-ce-cli containerd.io -->
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io -->
 
 
 # Container Image
@@ -74,4 +75,6 @@
 gcloud run deploy $SERVICE_NAME \
              --platform=managed \
              --region=$REGION \
+             --platform managed \
              --image=$AR_PATH/$SERVICE_NAME:$TAG
+

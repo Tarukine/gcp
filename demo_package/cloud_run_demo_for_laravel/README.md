@@ -14,7 +14,7 @@ In this hands-on, we will deploy a container image of Laravel to Cloud Run.
     export TAG="v0.0.1"
 
 
-## Artifact Registｒy
+## Artifact Registry
 ### Create Artifact Registry
     gcloud artifacts repositories create $REPOSITORY \
         --repository-format=$FORMAT \
@@ -27,7 +27,7 @@ In this hands-on, we will deploy a container image of Laravel to Cloud Run.
 
 
 ## Container Image
-###　clone demo application code
+### clone demo application code
     git clone https://github.com/Tarukine/gcp.git
     cd gcp/demo_package/cloud_run_demo_for_laravel/
 ### Build Docker image
@@ -47,6 +47,7 @@ gcloud run deploy $SERVICE_NAME \
              --platform managed \
              --image=$AR_PATH/$SERVICE_NAME:$TAG
 
+*** 
 
 ## Note
 
@@ -85,6 +86,8 @@ gcloud run deploy $SERVICE_NAME \
     sudo apt update
 ### Install the latest version
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+***
 
 ## Debug
     docker pull tarukine/demo-repository:v0.0.1
